@@ -1,10 +1,13 @@
-// components/CreateCategoryForm.tsx
 'use client'
 
 import React, { useState } from 'react'
 import { CategoryFormData } from '@/types/category'
 
-const CreateCategoryForm: React.FC = () => {
+interface CreateCategoryFormProps {
+  onCategoryCreated?: () => void;
+}
+
+const CreateCategoryForm: React.FC<CreateCategoryFormProps> = ({ onCategoryCreated }) => {
   const [formData, setFormData] = useState<CategoryFormData>({
     name: '',
     description: '',
@@ -37,11 +40,17 @@ const CreateCategoryForm: React.FC = () => {
           image: '',
           isActive: true
         })
-        // Refresh the page to show new category
-        window.location.reload()
+        // Call the callback if provided
+        if (onCategoryCreated) {
+          onCategoryCreated();
+        }
+      } else {
+        const error = await response.json();
+        alert(error.error || 'Failed to create category');
       }
     } catch (error) {
       console.error('Error creating category:', error)
+      alert('Failed to create category');
     } finally {
       setIsLoading(false)
     }
@@ -62,7 +71,6 @@ const CreateCategoryForm: React.FC = () => {
       slug: generateSlug(name)
     }))
   }
-
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {/* Name */}

@@ -48,7 +48,7 @@ const Hero = () => {
                 transition={{ duration: 0.8, delay: 0.6 }}
                 className="block text-xl sm:text-2xl font-normal text-emerald-700 tracking-widest mt-6 ml-1"
               >
-                ARCHITECTURAL NATURE
+                THE AURA OF KASHMIR
               </motion.span>
             </motion.h1>
 

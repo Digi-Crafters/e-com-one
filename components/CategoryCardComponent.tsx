@@ -4,6 +4,7 @@
 import React from "react";
 import { Category } from "@prisma/client";
 import Image from "next/image";
+import Link from "next/link";
 
 interface CategoryCardProps {
   category: Category;
@@ -20,6 +21,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
             alt={category.name}
             fill
             className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
@@ -76,12 +78,12 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
 
         {/* Action Buttons */}
         <div className="flex space-x-2 mt-4 pt-4 border-t border-gray-100">
-          <a
-            href={`/my-categories/${category.id}/edit`}
+          <Link
+            href={`/admin/categories/${category.id}/edit`}
             className="flex-1 bg-blue-50 text-blue-700 hover:bg-blue-100 py-2 px-3 rounded-md text-sm font-medium transition-colors duration-200 text-center"
           >
             Edit
-          </a>
+          </Link>
           <button className="flex-1 bg-gray-50 text-gray-700 hover:bg-gray-100 py-2 px-3 rounded-md text-sm font-medium transition-colors duration-200">
             View Products
           </button>
