@@ -1,0 +1,154 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model Customer {
+  id        String   @id @default(cuid())
+  email     String @unique
+  name      String
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relationships
+  addresses Address[]
+  orders    Order[]
+  
+  @@map("customers")
+}
+
+model Address {
+  id          String   @id @default(cuid())
+  street      String
+  city        String
+  state       String
+  zipCode     String
+  country     String   @default("US")
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  
+  // Foreign key
+  customerId  String
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  // Relationships
+  orders      Order[]
+  
+  @@map("addresses")
+}
+
+model Category {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  slug        String   @unique
+  image       String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relationships
+  products    Product[]
+  
+  @@map("categories")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  price       Decimal
+  images      String[] // Array of image URLs
+  sku         String?  @unique
+  stock       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Foreign keys
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  
+  // Relationships
+  orderItems  OrderItem[]
+  
+  @@map("products")
+}
+
+model Order {
+  id          String       @id @default(cuid())
+  orderNumber String       @unique
+  totalAmount Decimal
+  status      OrderStatus  @default(PENDING)
+  source      OrderSource  @default(WEBSITE)
+  paymentMethod PaymentMethod
+  notes       String?
+  trackingId  String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  
+  // Foreign keys - Customer information for the order
+  customerId  String
+  customer    Customer     @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  addressId   String
+  address     Address      @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  
+  // Relationships
+  orderItems  OrderItem[]
+  
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  quantity  Int
+  price     Decimal  // Price at the time of order (snapshot)
+  
+  // Foreign keys
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  
+  @@map("order_items")
+}
+
+// Enums for better type safety
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum OrderSource {
+  WEBSITE
+  WHATSAPP
+  INSTAGRAM
+  OTHER
+}
+
+enum PaymentMethod {
+  CASH
+  CREDIT_CARD
+  DEBIT_CARD
+  PAYPAL
+  BANK_TRANSFER
+  OTHER
+}
