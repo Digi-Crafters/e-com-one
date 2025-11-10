@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       },
     ],
     // domains can be kept for backwards compatibility if needed:
-    domains: ["encrypted-tbn0.gstatic.com"],
+    domains: ["encrypted-tbn0.gstatic.com",'images.unsplash.com'],
   },
 };
 

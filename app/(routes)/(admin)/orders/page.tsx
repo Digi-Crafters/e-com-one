@@ -112,7 +112,7 @@ const OrdersPage = async () => {
                         <div className="text-sm text-gray-500">{order.customer.email}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        ${Number(order.totalAmount).toFixed(2)}
+                        Rs{Number(order.totalAmount).toFixed(2)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>

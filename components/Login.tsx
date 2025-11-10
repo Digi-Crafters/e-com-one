@@ -26,7 +26,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50 relative overflow-hidden">
+    <div className="min-h-screen bg-neutral-50 relative overflow-hidden mt-10">
       {/* Premium Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
       
@@ -225,7 +225,7 @@ const LoginPage = () => {
                 transition={{ duration: 0.8, delay: 0.9 }}
                 className="text-center text-neutral-600 text-sm tracking-wide"
               >
-                Don't have an account?{' '}
+                Don&apos;t have an account?{' '}
                 <button
                   type="button"
                   onClick={() => setIsLogin(false)}

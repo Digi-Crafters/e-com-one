@@ -1,21 +1,22 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
     <section className="min-h-screen bg-neutral-50 relative overflow-hidden">
       {/* Premium Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
-      
+
       {/* Accent Lines */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-300 to-transparent"></div>
       <div className="absolute top-0 left-0 w-px h-full bg-gradient-to-b from-transparent via-emerald-300 to-transparent"></div>
 
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 min-h-screen flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center w-full py-16">
-          
           {/* Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -80 }}
@@ -31,7 +32,9 @@ const Hero = () => {
               className="inline-flex items-center gap-3 px-4 py-3 bg-white border border-neutral-200 shadow-sm"
             >
               <div className="w-1.5 h-1.5 bg-emerald-600"></div>
-              <span className="text-xs font-medium text-neutral-700 tracking-widest uppercase">ELEVATED NATURAL ESSENCE</span>
+              <span className="text-xs font-medium text-neutral-700 tracking-widest uppercase">
+                ELEVATED NATURAL ESSENCE
+              </span>
             </motion.div>
 
             {/* Main Heading */}
@@ -59,8 +62,8 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="text-lg text-neutral-600 leading-relaxed max-w-md font-light tracking-wide border-l-2 border-emerald-400 pl-6 py-2"
             >
-              Precision-crafted natural solutions for the discerning. 
-              Where organic purity meets architectural sophistication.
+              Precision-crafted natural solutions for the discerning. Where
+              organic purity meets architectural sophistication.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -70,32 +73,40 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.7 }}
               className="flex flex-col sm:flex-row gap-4 pt-8"
             >
-              <motion.button
-                whileHover={{ 
-                  scale: 1.02,
-                  backgroundColor: "#059669",
-                  transition: { duration: 0.2 }
-                }}
-                className="bg-neutral-900 text-white px-10 py-4 font-medium text-sm tracking-widest uppercase border border-neutral-900 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3"
-              >
-                <span>DISCOVER</span>
-                <motion.svg
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+              <Link href="/categories">
+                <motion.button
+                  whileHover={{
+                    scale: 1.02,
+                    backgroundColor: "#059669",
+                    transition: { duration: 0.2 },
+                  }}
+                  className="bg-neutral-900 text-white px-10 py-4 font-medium text-sm tracking-widest uppercase border border-neutral-900 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3"
                 >
-                  <path strokeLinecap="square" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </motion.svg>
-              </motion.button>
-              
+                  <span>DISCOVER</span>
+
+                  <motion.svg
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="square"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </motion.svg>
+                </motion.button>
+              </Link>
+
               <motion.button
-                whileHover={{ 
+                whileHover={{
                   backgroundColor: "white",
                   borderColor: "#059669",
-                  color: "#059669"
+                  color: "#059669",
                 }}
                 className="bg-transparent border border-neutral-400 text-neutral-700 hover:text-emerald-700 px-10 py-4 font-medium text-sm tracking-widest uppercase transition-all duration-300"
               >
@@ -111,14 +122,18 @@ const Hero = () => {
               className="grid grid-cols-2 gap-8 pt-12 border-t border-neutral-200"
             >
               {[
-                { label: 'Sustainable Sourcing', value: '100%' },
-                { label: 'Artisanal Craft', value: 'Premium' },
-                { label: 'Natural Integrity', value: 'Preserved' },
-                { label: 'Modern Design', value: 'Architected' }
+                { label: "Sustainable Sourcing", value: "100%" },
+                { label: "Artisanal Craft", value: "Premium" },
+                { label: "Natural Integrity", value: "Preserved" },
+                { label: "Modern Design", value: "Architected" },
               ].map((feature, index) => (
                 <div key={index} className="flex flex-col">
-                  <div className="text-2xl font-light text-neutral-900 mb-1">{feature.value}</div>
-                  <div className="text-xs text-neutral-500 tracking-widest uppercase">{feature.label}</div>
+                  <div className="text-2xl font-light text-neutral-900 mb-1">
+                    {feature.value}
+                  </div>
+                  <div className="text-xs text-neutral-500 tracking-widest uppercase">
+                    {feature.label}
+                  </div>
                 </div>
               ))}
             </motion.div>
@@ -138,14 +153,22 @@ const Hero = () => {
               className="absolute top-0 right-0 w-4/5 h-4/5 bg-neutral-800 shadow-2xl border border-neutral-300 overflow-hidden"
             >
               {/* Replace with actual Image component */}
-              <div className="w-full h-full bg-gradient-to-br from-emerald-900 to-neutral-700 flex items-center justify-center">
-                <span className="text-white text-sm tracking-widest">PREMIUM PRODUCT SHOT</span>
-              </div>
-              
+              <Image
+                src="https://images.unsplash.com/photo-1679006831648-7c9ea12e5807?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687"
+                alt="Kashora Premium Product"
+                width={800}
+                height={600}
+                className="w-full h-full object-cover"
+              />
+
               {/* Overlay Text */}
               <div className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-sm p-6">
-                <div className="text-white text-sm tracking-widest uppercase">Kashora Signature Collection</div>
-                <div className="text-emerald-300 text-xs mt-1">Architectural Natural Design</div>
+                <div className="text-white text-sm tracking-widest uppercase">
+                  Kashora Signature Collection
+                </div>
+                <div className="text-emerald-300 text-xs mt-1">
+                  Architectural Natural Design
+                </div>
               </div>
             </motion.div>
 
@@ -156,9 +179,13 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.8 }}
               className="absolute bottom-0 left-0 w-2/5 h-2/5 bg-neutral-600 shadow-xl border border-neutral-300 overflow-hidden"
             >
-              <div className="w-full h-full bg-gradient-to-br from-amber-800 to-neutral-600 flex items-center justify-center">
-                <span className="text-white text-xs tracking-widest">MATERIAL DETAIL</span>
-              </div>
+              <Image
+                src="https://images.unsplash.com/photo-1609748340041-f5d61e061ebc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=709"
+                alt="Kashora Premium Product"
+                width={800}
+                height={600}
+                className="w-full h-full object-cover"
+              />
             </motion.div>
 
             {/* Accent Line */}
