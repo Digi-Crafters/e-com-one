@@ -1,13 +1,21 @@
+// components/CreateCategoryForm.tsx
 'use client'
 
 import React, { useState } from 'react'
-import { CategoryFormData } from '@/types/category'
+import { useRouter } from 'next/navigation'
 
-interface CreateCategoryFormProps {
-  onCategoryCreated?: () => void;
+interface CategoryFormData {
+  name: string
+  description: string
+  slug: string
+  image: string
+  isActive: boolean
 }
 
-const CreateCategoryForm: React.FC<CreateCategoryFormProps> = ({ onCategoryCreated }) => {
+const CreateCategoryForm: React.FC = () => {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
+  
   const [formData, setFormData] = useState<CategoryFormData>({
     name: '',
     description: '',
@@ -15,8 +23,6 @@ const CreateCategoryForm: React.FC<CreateCategoryFormProps> = ({ onCategoryCreat
     image: '',
     isActive: true
   })
-  
-  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -40,17 +46,11 @@ const CreateCategoryForm: React.FC<CreateCategoryFormProps> = ({ onCategoryCreat
           image: '',
           isActive: true
         })
-        // Call the callback if provided
-        if (onCategoryCreated) {
-          onCategoryCreated();
-        }
-      } else {
-        const error = await response.json();
-        alert(error.error || 'Failed to create category');
+        // Refresh the page to show new category
+        router.refresh()
       }
     } catch (error) {
       console.error('Error creating category:', error)
-      alert('Failed to create category');
     } finally {
       setIsLoading(false)
     }
@@ -71,6 +71,7 @@ const CreateCategoryForm: React.FC<CreateCategoryFormProps> = ({ onCategoryCreat
       slug: generateSlug(name)
     }))
   }
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {/* Name */}
